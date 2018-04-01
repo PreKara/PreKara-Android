@@ -16,30 +16,12 @@
         android:layout_marginTop="16dp"/>
 
     <LinearLayout
+        android:id="@+id/layout_space_for_fragments_main"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
         android:gravity="center">
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/bt_create"
-            android:text="Create"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/view_round_corners"
-            android:textColor="#fff"
-            android:theme="@style/Base.Widget.AppCompat.Button.Borderless"
-            android:layout_margin="8dp"/>
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/bt_connect"
-            android:text="Connect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/view_round_corners"
-            android:textColor="#fff"
-            android:theme="@style/Base.Widget.AppCompat.Button.Borderless"
-            android:layout_margin="8dp"/>
     </LinearLayout>
 
 </LinearLayout>

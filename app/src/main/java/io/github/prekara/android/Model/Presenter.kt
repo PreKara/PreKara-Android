@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-package io.swagger.client.models
+package io.github.prekara.android.Model
 
 import com.google.gson.annotations.SerializedName
 
@@ -20,6 +20,6 @@ import com.google.gson.annotations.SerializedName
  */
 data class Presenter (
         @SerializedName("presenter_name")
-        val name: kotlin.String
+        val name: String
 ) {}
 

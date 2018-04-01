@@ -1,0 +1,40 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context="io.github.prekara.android.Fragment.StartFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimary">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_server_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Server Name"
+            android:textAllCaps="false"
+            android:maxLines="1"
+            android:inputType="text"
+
+            android:background="@drawable/view_round_corners"
+            android:layout_margin="8dp"
+            android:padding="12dp"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_connect"
+        android:text="Connect Server"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_round_corners"
+        android:textColor="#fff"
+        android:theme="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_margin="8dp"/>
+</LinearLayout>

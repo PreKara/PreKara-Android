@@ -11,8 +11,6 @@
 */
 package io.github.prekara.android.Model
 
-import com.google.gson.annotations.SerializedName
-
 
 /**
  * 
@@ -20,7 +18,6 @@ import com.google.gson.annotations.SerializedName
  * @param password 
  */
 data class Server (
-        @SerializedName("server_name")
         val name: String,
         val password: String
 ) {}

@@ -11,7 +11,6 @@
 */
 package io.github.prekara.android.Model
 
-import com.google.gson.annotations.SerializedName
 
 
 /**
@@ -19,7 +18,6 @@ import com.google.gson.annotations.SerializedName
  * @param name
  */
 data class Image (
-        @SerializedName("image_name")
         val name: String
 ) {}
 

@@ -11,15 +11,11 @@
  */
 package io.github.prekara.android.Model
 
-import com.google.gson.annotations.SerializedName
-
-
 /**
  *
  * @param name
  */
 data class Presenter (
-        @SerializedName("presenter_name")
         val name: String
 ) {}
 

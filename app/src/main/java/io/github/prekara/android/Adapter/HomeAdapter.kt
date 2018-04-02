@@ -10,7 +10,7 @@ import io.github.prekara.android.Fragment.HomeTab.PresenterFragment
 /**
  * Created by developer on 4/2/18.
  */
-class HomeAdapter(val manager: FragmentManager): FragmentPagerAdapter(manager) {
+class HomeAdapter(manager: FragmentManager): FragmentPagerAdapter(manager) {
 
     val NUM_OF_PAGES: Int = 3
 
@@ -22,6 +22,8 @@ class HomeAdapter(val manager: FragmentManager): FragmentPagerAdapter(manager) {
             else -> PresenterFragment()
         }
     }
+
+
 
     override fun getCount(): Int = NUM_OF_PAGES
 

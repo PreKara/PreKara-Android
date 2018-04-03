@@ -11,7 +11,7 @@ class MyApplication: Application() {
     override fun onCreate() {
         super.onCreate()
         FuelManager.instance.apply {
-            basePath = "https://prekara.mizucoffee.net"
+            basePath = "https://prekara.net/api/v1"
             baseHeaders = mapOf( "Content-Type" to "application/json" )
         }
     }

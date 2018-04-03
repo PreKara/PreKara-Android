@@ -4,6 +4,7 @@ package io.github.prekara.android.Fragment
 import android.os.Bundle
 import android.app.Fragment
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +17,14 @@ import kotlinx.android.synthetic.main.fragment_server_info.*
 /**
  * A simple [Fragment] subclass.
  */
-class ServerInfoFragment : Fragment() {
+class ServerConnectionFragment : Fragment() {
 
+    companion object {
+        fun getInstance(): ServerConnectionFragment {
+            Log.d("Fragment", "ServerConnectionFragment")
+            return ServerConnectionFragment()
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -27,6 +34,9 @@ class ServerInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         bt_connect.setOnClickListener {
+            val serverName = et_server_name.text.toString()
+            val password   = et_server_password.text.toString()
+
             startActivity( Intent( activity.applicationContext, HomeActivity::class.java ) )
         }
         super.onViewCreated(view, savedInstanceState)

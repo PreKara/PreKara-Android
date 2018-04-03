@@ -5,6 +5,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.android.extension.responseJson
 import com.github.kittinunf.result.Result
 import io.github.prekara.android.Adapter.HomeAdapter
 import kotlinx.android.synthetic.main.activity_home.*
@@ -33,11 +34,12 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        Fuel.get("/api").response { request, response, result ->
+        Log.d("HomeActivity", "Created")
+
+        Fuel.get("").responseJson { request, response, result ->
             when (result) {
                 is Result.Success -> {
-                    Log.d("Success", "$result")
-                    Log.d("Response", "${response.data}")
+                    Log.d("Response", "${result.value.obj()}")
                 }
                 is Result.Failure -> {
                     Log.d("Error", result.getException().toString())

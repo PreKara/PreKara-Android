@@ -32,10 +32,12 @@
             android:layout_height="wrap_content"
             android:inputType="text"
 
-            android:background="@drawable/view_round_corners"
-            android:theme="@style/EditTextStyle"
             android:layout_margin="8dp"
-            android:padding="12dp"/>
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            style="@style/EditTextStyle" />
 
         <TextView
             android:text="Password"
@@ -51,10 +53,12 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
 
-            android:background="@drawable/view_round_corners"
-            android:theme="@style/EditTextStyle"
             android:layout_margin="8dp"
-            android:padding="12dp"/>
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            style="@style/EditTextStyle" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/bt_connect"

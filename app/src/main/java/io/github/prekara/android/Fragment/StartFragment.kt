@@ -4,8 +4,6 @@ package io.github.prekara.android.Fragment
 import android.os.Bundle
 import android.app.Fragment
 import android.app.FragmentTransaction
-import android.transition.Slide
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,12 +29,11 @@ class StartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val manager  = fragmentManager
-        val fragment = ServerInfoFragment()
 
         bt_create.setOnClickListener {
             // Transition To SeverCreateFragment
             manager.beginTransaction()
-                    .replace(R.id.layout_space_for_fragments_main, fragment)
+                    .replace(R.id.layout_space_for_fragments_main, ServerCreateFragment.getInstance())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit()
             manager.executePendingTransactions()
@@ -45,7 +42,7 @@ class StartFragment : Fragment() {
         bt_connect.setOnClickListener {
             // Transition To SeverConnectFragment
             manager.beginTransaction()
-                    .replace(R.id.layout_space_for_fragments_main, fragment)
+                    .replace(R.id.layout_space_for_fragments_main, ServerConnectionFragment.getInstance())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit()
             manager.executePendingTransactions()

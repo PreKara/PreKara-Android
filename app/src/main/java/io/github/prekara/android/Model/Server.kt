@@ -20,5 +20,17 @@ package io.github.prekara.android.Model
 data class Server (
         val name: String,
         val password: String
-) {}
+) {
+
+    fun toPairList(): List<Pair<String, Any>> {
+        return listOf("server_name" to name, "password" to password)
+    }
+
+    override fun toString(): String = """
+        {
+            "server_name": $name,
+            "password": $password
+        }
+        """
+}
 

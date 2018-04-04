@@ -45,23 +45,21 @@ class HomeActivity : AppCompatActivity() {
         val adapter = HomeAdapter(supportFragmentManager)
         pager.adapter = adapter
 
-        var cookieStr: String = cookie.getString("cookie", "")
-                .replace("[", "").replace("]", "")
-        cookieStr =
-                cookieStr.split(", ")[0].split(Regex(";"))[0] + ";" +
-                cookieStr.split(", ")[2].split(Regex(";"))[0]
+//        var cookieStr: String = cookie.getString("cookie", "")
 
-        "/session".httpGet().header("Content-Type" to "application/json").header("Cookie" to cookieStr).responseJson { request, response, result ->
-            when (result) {
-                is Result.Success -> {
-                    Log.d("Success", result.get().toString())
+        "/session".httpGet()
+                .header("Content-Type" to "application/json")
+                .header("Cookie" to cookie.getString("cookie", ""))
+                .responseJson { request, response, result ->
+                    when (result) {
+                        is Result.Success -> {
+                            Log.d("Success at HomeActivity", result.get().toString())
+                        }
+                        is Result.Failure -> {
+                            Log.e("Error", result.getException().toString())
+                        }
+                    }
                 }
-                is Result.Failure -> {
-                    Log.d("Header", request.headers.toString())
-                    Log.e("Error", result.getException().toString())
-                }
-            }
-        }
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }

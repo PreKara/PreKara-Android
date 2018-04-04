@@ -1,20 +1,19 @@
 package io.github.prekara.android.AsyncTask
 
 import android.os.AsyncTask
+import io.github.prekara.android.AsyncTask.Listener.AsyncNextListener
 import io.github.prekara.android.AsyncTask.Listener.AsyncServerListener
-import io.github.prekara.android.Model.Server
-
 
 /**
  * Created by developer on 4/4/18.
  */
 
-class CreateServer(val server: Server): AsyncTask<Void, Void, String>() {
+class NextSlide(): AsyncTask<Void, Void, String>() {
 
 
-    lateinit var mListener: AsyncServerListener
+    lateinit var mListener: AsyncNextListener
 
-    fun setListener(listener: AsyncServerListener) {
+    fun setListener(listener: AsyncNextListener) {
         mListener = listener
     }
 
@@ -24,7 +23,7 @@ class CreateServer(val server: Server): AsyncTask<Void, Void, String>() {
     }
 
     override fun doInBackground(vararg params: Void?): String {
-        return mListener.doInBackground(server)
+        return mListener.doInBackground()
 
     }
 

@@ -14,13 +14,12 @@ import com.github.kittinunf.fuel.Fuel
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
-import io.github.prekara.android.AsyncTask.AsyncListener
+import io.github.prekara.android.AsyncTask.Listener.AsyncServerListener
 import io.github.prekara.android.AsyncTask.CreateServer
 import io.github.prekara.android.HomeActivity
 import io.github.prekara.android.Model.Server
 import io.github.prekara.android.R
 import kotlinx.android.synthetic.main.fragment_server_info.*
-import kotlinx.android.synthetic.main.fragment_start.*
 
 /**
  * Created by developer on 4/3/18.
@@ -46,9 +45,8 @@ class ServerCreateFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        val preferences: SharedPreferences
-        
         Log.d("onStart", "start")
+        bt_submit.text = "create"
 
         bt_submit.setOnClickListener {
             val createServer = CreateServer(
@@ -58,21 +56,27 @@ class ServerCreateFragment : Fragment() {
                     )
             )
 
-            createServer.setListener( object : AsyncListener {
+            createServer.setListener( object : AsyncServerListener {
                 override fun doInBackground(server: Server): String {
                     val moshi = Moshi.Builder()
                             .add(KotlinJsonAdapterFactory())
                             .build()
 
                     val adapter: JsonAdapter<Server> = moshi.adapter(Server::class.java)
-                    val (request, response, result) = Fuel.post("/server").body(adapter.toJson(server)).responseString()
+                    val (_, response, result) = Fuel.post("/server").body(adapter.toJson(server)).responseString()
 
                     val cookies: SharedPreferences = activity.getSharedPreferences("cookie", Context.MODE_PRIVATE)
                     val editor : SharedPreferences.Editor = cookies.edit()
-                    Log.d("Cookie", "${response.headers /* ["Set-Cookie"] */ }")
 
-//                    val a = response.headers["Set-Cookie"]!![]
-                    editor.putString("cookie", response.headers["Set-Cookie"].toString())
+                    var cookieStr: String = response.headers["set-cookie"]!![0]
+                    //                            .replace("[", "").replace("]", "")
+
+                    Log.d("Cookie", cookieStr)
+//                    cookieStr =
+//                            cookieStr.split(", ")[0].split(Regex(";"))[0] + ";" +
+//                            cookieStr.split(", ")[2].split(Regex(";"))[0]
+
+                    editor.putString("cookie", cookieStr)
                     editor.apply()
 
                     val (date, error) = result
@@ -81,7 +85,7 @@ class ServerCreateFragment : Fragment() {
                     } else {
                         Log.e("Error", error.toString())
                     }
-                    return result.get()
+                    return ""
                 }
 
                 override fun postExecute() {

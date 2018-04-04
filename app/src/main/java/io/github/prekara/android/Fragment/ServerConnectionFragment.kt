@@ -33,10 +33,7 @@ class ServerConnectionFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        bt_connect.setOnClickListener {
-            val serverName = et_server_name.text.toString()
-            val password   = et_server_password.text.toString()
-
+        bt_submit.setOnClickListener {
             startActivity( Intent( activity.applicationContext, HomeActivity::class.java ) )
         }
         super.onViewCreated(view, savedInstanceState)

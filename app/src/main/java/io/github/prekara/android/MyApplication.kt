@@ -1,6 +1,8 @@
 package io.github.prekara.android
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import com.github.kittinunf.fuel.core.FuelManager
 
 /**
@@ -8,6 +10,10 @@ import com.github.kittinunf.fuel.core.FuelManager
  */
 
 class MyApplication: Application() {
+
+    lateinit var cookie: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
+
     override fun onCreate() {
         super.onCreate()
         FuelManager.instance.apply {

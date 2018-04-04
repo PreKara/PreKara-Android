@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
         val fragment     = StartFragment()
         val transaction  = fragmentManager.beginTransaction()
         transaction.replace(R.id.layout_space_for_fragments_main,fragment)
-        transaction.addToBackStack(null)
         transaction.commit()
 
     }

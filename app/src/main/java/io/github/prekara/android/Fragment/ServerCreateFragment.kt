@@ -14,8 +14,8 @@ import com.github.kittinunf.fuel.Fuel
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
-import io.github.prekara.android.AsyncTask.Listener.AsyncServerListener
 import io.github.prekara.android.AsyncTask.CreateServer
+import io.github.prekara.android.AsyncTask.Listener.AsyncServerListener
 import io.github.prekara.android.HomeActivity
 import io.github.prekara.android.Model.Server
 import io.github.prekara.android.R
@@ -68,7 +68,7 @@ class ServerCreateFragment : Fragment() {
                     val cookies: SharedPreferences = activity.getSharedPreferences("cookie", Context.MODE_PRIVATE)
                     val editor : SharedPreferences.Editor = cookies.edit()
 
-                    var cookieStr: String = response.headers["set-cookie"]!![0]
+                    var cookieStr: String = response.headers["set-cookie"].toString()
                     //                            .replace("[", "").replace("]", "")
 
                     Log.d("Cookie", cookieStr)

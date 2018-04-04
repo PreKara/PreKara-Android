@@ -1,8 +1,6 @@
 package io.github.prekara.android
 
 import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
 import com.github.kittinunf.fuel.core.FuelManager
 
 /**

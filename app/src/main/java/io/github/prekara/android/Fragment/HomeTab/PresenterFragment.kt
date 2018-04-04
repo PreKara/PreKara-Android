@@ -9,16 +9,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.github.kittinunf.fuel.android.extension.responseJson
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
-import io.github.prekara.android.AsyncTask.Listener.AsyncNextListener
-import io.github.prekara.android.AsyncTask.NextSlide
-
 import io.github.prekara.android.R
 import kotlinx.android.synthetic.main.fragment_presenter.*
-import java.net.URL
-import kotlin.concurrent.thread
 
 
 /**
@@ -26,7 +22,7 @@ import kotlin.concurrent.thread
  */
 class PresenterFragment : Fragment() {
 
-    private var isTimeUp        = false
+    private var isTimeUp = false
     private var isSlideFinished = true
 
     private lateinit var cookie: SharedPreferences
@@ -41,80 +37,111 @@ class PresenterFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        if (!isSlideFinished) bt_next.text = "次のプレゼンターへ"
+        val cookieStr = cookie.getString("cookie", "").replace("[", "").replace("]", "")
+//        if (!isSlideFinished) bt_next.text =_ "次のプレゼンターへ"
 
         bt_next.setOnClickListener {
-
-            val nextSlide = NextSlide()
-            nextSlide.setListener(object : AsyncNextListener {
-                override fun preExecute() {
-                    // Nothing
-                }
-
-                override fun postExecute() {
-
-                }
-
-                override fun doInBackground(): String {
-                    if (isTimeUp) {
-                        "/control/new".httpGet()
-                                .header("Content-Type" to "application/json")
-                                .header("Cookie" to cookie.getString("cookie", ""))
-                                .responseJson { request, response, result ->
-                                    when (result) {
-                                        is Result.Success -> {
-                                            // Success
-                                            Log.d("NextPresenter", "${result.value}")
-                                        }
-                                        is Result.Failure -> {
-                                            // Error
-                                            Log.e("Error at Presenter", result.getException().toString())
-                                        }
+            "/control/new".httpGet().header("Content-Type" to "application/json").header("cookie" to cookieStr).responseJson { request, response, result ->
+                when (result) {
+                    is Result.Success -> {
+                        Log.d("Success", result.value.content)
+                        Toast.makeText(activity, "success", Toast.LENGTH_SHORT).show()
+                        bt_next.text = "次のスライドへ"
+                        bt_next.setOnClickListener {
+                            "/control/next".httpGet().header("Content-Type" to "application/json").header("cookie" to cookieStr).responseJson { request, response, result ->
+                                when (result) {
+                                    is Result.Success -> {
+                                        Log.d("Success", result.value.content)
+                                        Toast.makeText(activity, "success", Toast.LENGTH_SHORT).show()
+                                    }
+                                    is Result.Failure -> {
+                                        Log.d("Header", request.headers.toString())
+                                        result.getException().printStackTrace()
                                     }
                                 }
-                    } else {
-                        if (isSlideFinished) {
-                            "/control/new".httpGet()
-                                    .header("Content-Type" to "application/json")
-                                    .header("Cookie" to cookie.getString("cookie", ""))
-                                    .response()
-                            isSlideFinished = false
-                            return ""
-                        }
-
-                        var triple = "/control/next".httpGet()
-                                .header("Content-Type" to "application/json")
-                                .header("Cookie" to cookie.getString("cookie", ""))
-                                .responseJson()
-                        when (triple.third) {
-                            is Result.Success -> {
-                                Log.d("NextSlide", triple.third.toString())
                             }
-
-
                         }
                     }
-//                                .responseJson { request, response, result ->
-//                                    when (result) {
-//                                        is Result.Success -> {
-//                                            // Success
-//                                            Log.d("NextSlide", "${result.value}")
-//                                        }
-//                                        is Result.Failure -> {
-//                                            // Error
-//                                            result.getException().printStackTrace()
-////                                            Log.e("Error", result.getException().toString())
-//                                        }
-//                                    }
-
-
-//                }
-                    return ""
+                    is Result.Failure -> {
+                        Log.d("Header", request.headers.toString())
+                        result.getException().printStackTrace()
+                    }
+                }
             }
 
-        })
-            nextSlide.execute()
-        }
+//            bt_next.setOnClickListener {
+//
+//                val nextSlide = NextSlide()
+//                nextSlide.setListener(object : AsyncNextListener {
+//                    override fun preExecute() {
+//                        // Nothing
+//                    }
+//
+//                    override fun postExecute() {
+//
+//                    }
+//
+//                    override fun doInBackground(): String {
+//                        if (isTimeUp) {
+//                            "/control/new".httpGet()
+//                                    .header("Content-Type" to "application/json")
+//                                    .header("Cookie" to cookie.getString("cookie", ""))
+//                                    .responseJson { request, response, result ->
+//                                        when (result) {
+//                                            is Result.Success -> {
+//                                                // Success
+//                                                Log.d("NextPresenter", "${result.value}")
+//                                            }
+//                                            is Result.Failure -> {
+//                                                // Error
+//                                                Log.e("Error at Presenter", result.getException().toString())
+//                                            }
+//                                        }
+//                                    }
+//                        } else {
+//                            if (isSlideFinished) {
+//                                "/control/new".httpGet()
+//                                        .header("Content-Type" to "application/json")
+//                                        .header("Cookie" to cookie.getString("cookie", ""))
+//                                        .response()
+//                                isSlideFinished = false
+//                                return ""
+//                            }
+//
+//                            var triple = "/control/next".httpGet()
+//                                    .header("Content-Type" to "application/json")
+//                                    .header("Cookie" to cookie.getString("cookie", ""))
+//                                    .responseJson()
+//                            when (triple.third) {
+//                                is Result.Success -> {
+//                                    Log.d("NextSlide", triple.third.toString())
+//                                }
+//
+//
+//                            }
+//                        }
+////                                .responseJson { request, response, result ->
+////                                    when (result) {
+////                                        is Result.Success -> {
+////                                            // Success
+////                                            Log.d("NextSlide", "${result.value}")
+////                                        }
+////                                        is Result.Failure -> {
+////                                            // Error
+////                                            result.getException().printStackTrace()
+//////                                            Log.e("Error", result.getException().toString())
+////                                        }
+////                                    }
+//
+//
+////                }
+//                        return ""
+//                    }
+//
+//                })
+//                nextSlide.execute()
+//            }
 
-    }
-}// Required empty public constructor
+        }
+    }// Required empty public constructor
+}
